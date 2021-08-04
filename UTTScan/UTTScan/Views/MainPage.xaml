@@ -14,19 +14,19 @@
                     <On Platform="iOS" Value="tab_feed.png"/>
                 </OnPlatform>
             </NavigationPage.Icon>
-            <x:Arguments>
-                <views:ItemsPage />
-            </x:Arguments>
+                <x:Arguments>
+                     <views:ItemsPage />
+                </x:Arguments>
         </NavigationPage>
         
-        <NavigationPage Title="Exit">
+        <NavigationPage Title="leer QR">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="iOS" Value="tab_about.png"/>
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
-                <views:AboutPage />
+                <views:VistaQR />
             </x:Arguments>
         </NavigationPage>
     </TabbedPage.Children>

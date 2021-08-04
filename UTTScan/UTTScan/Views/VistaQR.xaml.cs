@@ -25,41 +25,43 @@ namespace UTTScan.Views
         {
             try
             {
-                //var scanner = new ZXing.Mobile.MobileBarcodeScanner();
-                //scanner.TopText = "UTTSCAN";
-                // var result = await scanner.Scan();
-                if (true)
+                var scanner = new ZXing.Mobile.MobileBarcodeScanner();
+                scanner.TopText = "UTTSCAN";
+                var result = await scanner.Scan();
+                loadingView.IsVisible = true;
+                if (result.Text != null)
                 {
                     Uri requestUri = new Uri("http://utttproyect-001-site1.itempurl.com/api/control-acceso");
                     var fecha = DateTime.Now;
                     var client = new HttpClient();
                     ControlAcceso ctracceso = new ControlAcceso {
-
                         Fecha = fecha,
                         Dia = fecha.Day,
                         Mes = fecha.Month,
                         Anio = fecha.Year,
                         Mintos = fecha.Minute,
                         Hora = fecha.Hour,
-                        FkAlumno = int.Parse("18300181")
-                        
+                        FkAlumno = int.Parse(result.Text)
                     };
                     var json = JsonConvert.SerializeObject(ctracceso);
                     var contentjson = new StringContent(json, Encoding.UTF8, "application/json");
                     var response = await client.PostAsync(requestUri, contentjson);
                     if(response.StatusCode == HttpStatusCode.OK ){
+                        loadingView.IsVisible = false;
                         await DisplayAlert("ok", "Acceso Concedido", "ok");
                     }
                     else
                     {
-                        await DisplayAlert("ok No", "No tienes acceso", "ok");
+                        loadingView.IsVisible = false;
+                        await DisplayAlert("Ups", "No tienes acceso", "ok");
                     }
                     // txtResultado.Text = result.Text;
                 }
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message.ToString(), "ok");
+                loadingView.IsVisible = false;
+                await DisplayAlert("Error", "Algo salió mal al leer o activar la cámara", "ok");
             }
         }
     }

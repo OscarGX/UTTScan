@@ -19,7 +19,7 @@
                 </x:Arguments>
         </NavigationPage>
         
-        <NavigationPage Title="leer QR">
+        <NavigationPage Title="Leer QR">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="iOS" Value="tab_about.png"/>
